@@ -17,6 +17,10 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpServletRequest req = request;
+		HttpServletResponse res = response;
+
 		try {
 			String path = req.getServletPath().substring(1);
 			String name = path.replace(".a", "A").replace('/', '.');

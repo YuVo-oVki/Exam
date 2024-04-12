@@ -12,12 +12,16 @@ import javax.servlet.http.HttpSession;
 
 import bean.Student;
 import bean.Teacher;
+import dao.ClassNumDao;
 import dao.StudentDao;
 import tool.Action;
 
 public class StudentListAction extends Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpServletRequest req = request;
+		HttpServletResponse res = response;
+
 		HttpSession session = request.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
 
@@ -71,8 +75,5 @@ public class StudentListAction extends Action {
 		req.setAttribute("ent_year_set", entYearSet);
 
 		req.getRequestDispatcher("student_list.jsp").forward(req, res);
-
-
-
 	}
 }

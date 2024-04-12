@@ -12,7 +12,7 @@ import bean.Student;
 
 public class StudentDao extends Dao {
 
-	private String baseSql;
+	private String baseSql = "select * from student where school_cd=? ";
 
 	public Student get(String no) throws Exception {
 		Student student = new Student();
@@ -74,7 +74,6 @@ public class StudentDao extends Dao {
 		}
 		return list;
 	}
-
 
 	public List<Student> filter(School school, int entYear, String classNum, boolean isAttend) throws Exception {
 		List<Student> list = new ArrayList<>();
@@ -244,7 +243,5 @@ public class StudentDao extends Dao {
 			return false;
 		}
 	}
-
-	private String basesql = "select * from student where school_cd=? ";
 
 }
