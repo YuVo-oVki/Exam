@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class School implements Serializable {
 	private String cd;
 	private String name;
+
 	public String getCd() {
 		return cd;
 	}

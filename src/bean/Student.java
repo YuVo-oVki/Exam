@@ -7,6 +7,7 @@ public class Student {
 	private String classNum;
 	private boolean isAttend;
 	private School school;
+
 	public String getNo() {
 		return no;
 	}
