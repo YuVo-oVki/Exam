@@ -1,36 +1,66 @@
 package dao;
 
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 import bean.School;
 
-public class ClassNumDao implements Filter {
+public class ClassNumDao extends Dao {
+	/**
+	 * filterメソッド 学校を指定してクラス番号の一覧を取得する
+	 *
+	 * @param school:School
+	 * @return クラス番号の一覧:List<String>
+	 * @throws Exception
+	 */
+	public List<String> filter(School school) throws Exception {
+		// リストを初期化
+		List<String> list = new ArrayList<>();
+		// データベースへのコネクションを確立
+		Connection connection = getConnection();
+		// プリペアードステートメント
+		PreparedStatement statement = null;
 
-	public List<String> filter(School s) {
-		return (List<String>)s;
-	}
+		try {
+			// プリペアードステートメントにSQL文をセット
+			statement = connection
+					.prepareStatement("select class_num from class_num where school_cd=? order by class_num");
+			// プリペアードステートメントに学校コードをバインド
+			statement.setString(1, school.getCd());
+			// プリペアードステートメントを実行
+			ResultSet rSet = statement.executeQuery();
 
-	@Override
-	public void destroy() {
+			// リザルトセットを全件走査
+			while (rSet.next()) {
+				// リストにクラス番号を追加
+				list.add(rSet.getString("class_num"));
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			// コネクションを閉じる
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
 
-	}
-
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
-		  filterChain.doFilter(req, res);
-	}
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-
+		return list;
 	}
 
 }

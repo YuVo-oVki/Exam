@@ -14,48 +14,6 @@ public class StudentDao extends Dao {
 
 	private String baseSql = "select * from student where school_cd=? ";
 
-	public Student get(String no) throws Exception {
-		Student student = new Student();
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-
-		try {
-			statement = connection.prepareStatement("select * from student where no=?");
-			statement.setString(1, no);
-			ResultSet rSet = statement.executeQuery();
-			SchoolDao schoolDao = new SchoolDao();
-
-			if (rSet.next()) {
-				student.setNo(rSet.getString("no"));
-				student.setName(rSet.getString("name"));
-				student.setEntYear(rSet.getInt("ent_year"));
-				student.setClassNum(rSet.getString("is_attend"));
-				student.setSchool(schoolDao.get(rSet.getString("school_cd")));
-			} else {
-				student = null;
-			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-
-		return student;
-	}
-
 	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
 		List<Student> list = new ArrayList<>();
 		try {
@@ -131,6 +89,7 @@ public class StudentDao extends Dao {
 			statement.setString(1, school.getCd());
 			statement.setInt(2, entYear);
 			rSet = statement.executeQuery();
+			list = postFilter(rSet, school);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -158,14 +117,13 @@ public class StudentDao extends Dao {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
-		String condition = "and ent_year=? ";
 		String order = " order by no asc";
 		String conditionIsAttend = "";
 		if (isAttend) {
 			conditionIsAttend = "and is_attend=true";
 		}
 		try {
-			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
+			statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
 			statement.setString(1, school.getCd());
 			rSet = statement.executeQuery();
 			list = postFilter(rSet, school);
@@ -189,6 +147,48 @@ public class StudentDao extends Dao {
 		}
 
 		return list;
+	}
+
+	public Student get(String no) throws Exception {
+		Student student = new Student();
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+
+		try {
+			statement = connection.prepareStatement("select * from student where no=?");
+			statement.setString(1, no);
+			ResultSet rSet = statement.executeQuery();
+			SchoolDao schoolDao = new SchoolDao();
+
+			if (rSet.next()) {
+				student.setNo(rSet.getString("no"));
+				student.setName(rSet.getString("name"));
+				student.setEntYear(rSet.getInt("ent_year"));
+				student.setClassNum(rSet.getString("is_attend"));
+				student.setSchool(schoolDao.get(rSet.getString("school_cd")));
+			} else {
+				student = null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		return student;
 	}
 
 	public boolean save(Student student) throws Exception {

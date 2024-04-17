@@ -8,8 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -19,11 +19,24 @@ import tool.Action;
 public class StudentListAction extends Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		HttpServletRequest req = request;
 		HttpServletResponse res = response;
 
-		HttpSession session = request.getSession();
-		Teacher teacher = (Teacher)session.getAttribute("user");
+		// HttpSession session = request.getSession();
+		// Teacher teacher = (Teacher)session.getAttribute("user");
+
+
+		School school = new School();
+		school.setCd("tes");
+		school.setName("テスト校");
+
+		Teacher teacher = new Teacher();
+		teacher.setId("admin1");
+		teacher.setName("管理者1");
+		teacher.setPassword("password");
+		teacher.setSchool(school);
+
 
 		String entYearStr="";
 		String classNum="";
