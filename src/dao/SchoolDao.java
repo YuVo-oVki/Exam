@@ -26,7 +26,7 @@ public class SchoolDao extends Dao {
 
 		try {
 			// プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from school where cd=?");
+			statement = connection.prepareStatement("select * from school where school_cd=?");
 			// プリペアードステートメントに学校コードをバインド
 			statement.setString(1, cd);
 			// プリペアードステートメントを実行
@@ -35,8 +35,8 @@ public class SchoolDao extends Dao {
 			if (rSet.next()) {
 				// リザルトセットが存在する場合
 				// 学校インスタンスに学校コードと学校名をセット
-				school.setCd(rSet.getString("cd"));
-				school.setName(rSet.getString("name"));
+				school.setCd(rSet.getString("school_cd"));
+				school.setName(rSet.getString("school_name"));
 			} else {
 				// 存在しない場合
 				// 学校インスタンスにnullをセット

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Student;
@@ -18,25 +19,20 @@ import tool.Action;
 
 public class StudentListAction extends Action {
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		HttpServletRequest req = request;
-		HttpServletResponse res = response;
+		HttpSession session = req.getSession();
+//		Teacher teacher = (Teacher)session.getAttribute("user");
 
-		// HttpSession session = request.getSession();
-		// Teacher teacher = (Teacher)session.getAttribute("user");
-
-
-		School school = new School();
-		school.setCd("tes");
-		school.setName("テスト校");
+		School school=new School();
+		school.setCd("oom");
+		school.setName("学校名");
 
 		Teacher teacher = new Teacher();
-		teacher.setId("admin1");
-		teacher.setName("管理者1");
+		teacher.setId("admin");
 		teacher.setPassword("password");
+		teacher.setName("大原花子");
 		teacher.setSchool(school);
-
 
 		String entYearStr="";
 		String classNum="";
@@ -56,6 +52,10 @@ public class StudentListAction extends Action {
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
+		if (entYearStr != null) {
+			entYear = Integer.parseInt(entYearStr);
+		}
+
 		if (entYear != 0 && !classNum.equals("0")) {
 			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
 		} else if (entYear != 0 && classNum.equals("0")) {
@@ -69,9 +69,6 @@ public class StudentListAction extends Action {
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 
-		if (entYearStr != null) {
-			entYear = Integer.parseInt(entYearStr);
-		}
 		List<Integer> entYearSet = new ArrayList<>();
 		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
@@ -79,6 +76,7 @@ public class StudentListAction extends Action {
 
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
+
 		if (isAttendStr != null) {
 			isAttend = true;
 			req.setAttribute("f3", isAttendStr);

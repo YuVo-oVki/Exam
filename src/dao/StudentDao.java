@@ -14,6 +14,48 @@ public class StudentDao extends Dao {
 
 	private String baseSql = "select * from student where school_cd=? ";
 
+	public Student get(String no) throws Exception {
+		Student student = new Student();
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+
+		try {
+			statement = connection.prepareStatement("select * from student where no=?");
+			statement.setString(1, no);
+			ResultSet rSet = statement.executeQuery();
+			SchoolDao schoolDao = new SchoolDao();
+
+			if (rSet.next()) {
+				student.setNo(rSet.getString("no"));
+				student.setName(rSet.getString("name"));
+				student.setEntYear(rSet.getInt("ent_year"));
+				student.setClassNum(rSet.getString("is_attend"));
+				student.setSchool(schoolDao.get(rSet.getString("school_cd")));
+			} else {
+				student = null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		return student;
+	}
+
 	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
 		List<Student> list = new ArrayList<>();
 		try {
@@ -149,47 +191,6 @@ public class StudentDao extends Dao {
 		return list;
 	}
 
-	public Student get(String no) throws Exception {
-		Student student = new Student();
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-
-		try {
-			statement = connection.prepareStatement("select * from student where no=?");
-			statement.setString(1, no);
-			ResultSet rSet = statement.executeQuery();
-			SchoolDao schoolDao = new SchoolDao();
-
-			if (rSet.next()) {
-				student.setNo(rSet.getString("no"));
-				student.setName(rSet.getString("name"));
-				student.setEntYear(rSet.getInt("ent_year"));
-				student.setClassNum(rSet.getString("is_attend"));
-				student.setSchool(schoolDao.get(rSet.getString("school_cd")));
-			} else {
-				student = null;
-			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-
-		return student;
-	}
 
 	public boolean save(Student student) throws Exception {
 		Connection connection = getConnection();
@@ -200,7 +201,7 @@ public class StudentDao extends Dao {
 			Student old = get(student.getNo());
 			if (old == null) {
 				statement = connection.prepareStatement(
-						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
+						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values (?, ?, ?, ?, ?, ?)");
 				statement.setString(1, student.getNo());
 				statement.setString(2, student.getName());
 				statement.setInt(3, student.getEntYear());

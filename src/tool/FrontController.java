@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		HttpServletRequest req = request;
-		HttpServletResponse res = response;
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		try {
 			String path = req.getServletPath().substring(1);
@@ -34,12 +31,10 @@ public class FrontController extends HttpServlet {
 			e.printStackTrace();
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
 		}
-		response.getWriter().append("Served at:").append(request.getContextPath());
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
-
 	}
 }

@@ -1,0 +1,10 @@
+<Context reloadable="true">
+	<Resource
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="org.h2.Driver"
+		url="jdbc:h2:~/studentlist"
+		username="sa"
+		password=""
+	name="jdbc/studentlist"/>
+</Context>
