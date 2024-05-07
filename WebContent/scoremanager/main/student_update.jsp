@@ -18,7 +18,7 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "StudentCreateExecute.action" method="post">
+			<form action = "StudentUpdate.action" method="post">
 				<div class="mx-3 py-2">
 					<div class="my-3">
 						<label class="form-label" for="student-ent_year-input">入学年度</label>

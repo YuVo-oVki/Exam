@@ -12,7 +12,7 @@ import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao{
 
-	private String baseSql = "select * from student where school_cd=? ";
+	private String baseSql = "select * from where school_cd=? ";
 
 	private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
 		List<Student> list = new ArrayList<>();
