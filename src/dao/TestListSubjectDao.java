@@ -10,7 +10,7 @@ import java.util.List;
 import bean.Student;
 import bean.TestListStudent;
 
-public class TestListStudentDao extends Dao{
+public class TestListSubjectDao extends Dao{
 
 	private String baseSql = "select * from where school_cd=? ";
 

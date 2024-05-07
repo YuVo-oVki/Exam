@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
-import bean.Student;
 import bean.Subject;
 
 public class SubjectDao extends Dao {
@@ -58,7 +57,7 @@ public class SubjectDao extends Dao {
 
     // 学校に関連付けられたすべての科目をフィルタリングする
 	public List<Subject> filter(School school) throws Exception {
-		List<Student> list = new ArrayList<>();
+		List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
@@ -96,24 +95,18 @@ public class SubjectDao extends Dao {
 		int count = 0;
 
 		try {
-			Subject old = get(subject.get());
+			Subject old = get(subject.getCd(), subject.getSchool());
 			if (old == null) {
 				statement = connection.prepareStatement(
 						"insert into subject() values (?, ?, ?, ?, ?, ?)");
-				statement.setString(1, subject.getNo());
+				statement.setString(1, subject.getCd());
 				statement.setString(2, subject.getName());
-				statement.setInt(3, student.getEntYear());
-				statement.setString(4, student.getClassNum());
-				statement.setBoolean(5, student.isAttend());
-				statement.setString(6, student.getSchool().getCd());
+
 			} else {
-				statement = connection
-						.prepareStatement("update student set name=?, ent_year=?, class_num=?, is_attend=?, where no=?");
-				statement.setString(1, student.getName());
-				statement.setInt(2, student.getEntYear());
-				statement.setString(3, student.getClassNum());
-				statement.setBoolean(4, student.isAttend());
-				statement.setString(5, student.getNo());
+				statement = connection.prepareStatement(
+						"insert into subject() values (?, ?, ?, ?, ?, ?)");
+				statement.setString(1, subject.getCd());
+				statement.setString(2, subject.getName());
 			}
 
 			count = statement.executeUpdate();
@@ -144,8 +137,8 @@ public class SubjectDao extends Dao {
 	}
 
 
-    // 科目を削除する
-    boolean delete(Subject subject) {
-
-    };
+//    // 科目を削除する
+//    boolean delete(Subject subject) {
+//
+//    };
 }
