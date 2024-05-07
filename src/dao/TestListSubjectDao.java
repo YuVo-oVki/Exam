@@ -46,11 +46,11 @@ public class TestListSubjectDao extends Dao{
 		}
 		try {
 			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
-			statement.setString(1, school.getCd());
-			statement.setInt(2, entYear);
-			statement.setString(3, classNum);
+			statement.setInt(1, student.getEntYear());
+			statement.setString(2, student.getClassNum());
 			rSet = statement.executeQuery();
 			list = postFilter(rSet, school);
+			list = postFilter(rSet, subject);
 		} catch (Exception e) {
 			throw e;
 		} finally {
