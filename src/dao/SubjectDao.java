@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
-import bean.Student;
 import bean.Subject;
 
 public class SubjectDao extends Dao {
@@ -24,6 +23,7 @@ public class SubjectDao extends Dao {
 		try {
 			statement = connection.prepareStatement("select * from subject where cd=? and school_cd=?");
 			statement.setString(1, cd);
+			statement.setString(2, school.getCd());
 			ResultSet rSet = statement.executeQuery();
 			SchoolDao schoolDao = new SchoolDao();
 
@@ -56,17 +56,19 @@ public class SubjectDao extends Dao {
 		return subject;
 	}
 
-    // 学校に関連付けられたすべての科目をフィルタリングする
 	public List<Subject> filter(School school) throws Exception {
-		List<Student> list = new ArrayList<>();
+		List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
-		String order = " order by no asc";
-
+		String order = " order by cd asc";
 		try {
 			statement = connection.prepareStatement(baseSql + order);
-			statement.setString(1, school.getCd());
+			statement.setString(1, school);
+			statement.setInt(2, entYear);
+			statement.setString(3, classNum);
+			rSet = statement.executeQuery();
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -89,31 +91,27 @@ public class SubjectDao extends Dao {
 		return list;
 	}
 
-    // 科目を保存する
 	public boolean save(Subject subject) throws Exception {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		int count = 0;
+		School school = new School();
 
 		try {
-			Subject old = get(subject.get());
+			Subject old = get(subject.getCd(), school);
 			if (old == null) {
 				statement = connection.prepareStatement(
-						"insert into subject() values (?, ?, ?, ?, ?, ?)");
-				statement.setString(1, subject.getNo());
-				statement.setString(2, subject.getName());
-				statement.setInt(3, student.getEntYear());
-				statement.setString(4, student.getClassNum());
-				statement.setBoolean(5, student.isAttend());
-				statement.setString(6, student.getSchool().getCd());
+						"insert into subject(school_cd, cd, name) values (?, ?, ?)");
+				statement.setString(1, subject.getSchool().getCd());
+				statement.setString(2, subject.getCd());
+				statement.setString(3, subject.getName());
 			} else {
 				statement = connection
-						.prepareStatement("update student set name=?, ent_year=?, class_num=?, is_attend=?, where no=?");
-				statement.setString(1, student.getName());
-				statement.setInt(2, student.getEntYear());
-				statement.setString(3, student.getClassNum());
-				statement.setBoolean(4, student.isAttend());
-				statement.setString(5, student.getNo());
+						.prepareStatement("update subject set school_cd=?, cd=?, name=?, where cd=?");
+				statement.setString(1, subject.getSchool().getCd());
+				statement.setString(2, subject.getCd());
+				statement.setString(3, subject.getName());
+				statement.setString(4, subject.getCd());
 			}
 
 			count = statement.executeUpdate();
@@ -144,7 +142,6 @@ public class SubjectDao extends Dao {
 	}
 
 
-    // 科目を削除する
     boolean delete(Subject subject) {
 
     };
