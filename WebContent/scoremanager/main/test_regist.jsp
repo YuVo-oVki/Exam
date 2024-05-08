@@ -61,9 +61,8 @@ pageEncoding="UTF-8" %>
 				</div>
 			</form>
 
-			<c:choose>
-				<c:when test="${f1}">
-				<h2>科目:"${f3}"（"${f4}"回）</h2>
+			<!-- <c:choose> -->
+				<!-- <h2>科目:"${f3}"（"${f4}"回）</h2> -->
 					<table>
 						<tr>
 							<th>入学年度</th>
@@ -88,10 +87,7 @@ pageEncoding="UTF-8" %>
 							</c:forEach>
 						</tr>
 					</table>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-			</c:choose>>
+			<!-- </c:choose> -->
 		</section>
 	</c:param>
 </c:import>

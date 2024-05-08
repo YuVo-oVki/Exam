@@ -1,6 +1,8 @@
 package scoremanager.main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,28 +32,54 @@ public class TestListAction extends Action {
 		teacher.setSchool(school);
 
 		String entYearStr = "";
-		int classNum;
+		String classNum = "";
 		String sub="";
 		String noStr = "";
+		int entYear = 0;
 		ClassNumDao cNumDao = new ClassNumDao();
 		LocalDate todaysDate = LocalDate.now();
 		int year = todaysDate.getYear();
 
 		entYearStr = req.getParameter("f1");
-		// classNum = req.getParameter("f2");
+		classNum = req.getParameter("f2");
 		sub = req.getParameter("f3");
 		noStr = req.getParameter("f4");
 
+		List<String> list = cNumDao.filter(teacher.getSchool());
+
+		if (entYearStr != null) {
+			entYear = Integer.parseInt(entYearStr);
+		}
+
+		List<Integer> entYearSet = new ArrayList<>();
+		for (int i = year - 10; i < year + 1; i++) {
+			entYearSet.add(i);
+		}
+
+		String submit = req.getParameter("submit");
+
+		/*
+		if (submit.equals("Subject")){
+			req.setAttribute("f1", entYear);
+			req.setAttribute("f2", classNum);
+			req.setAttribute("class_num_set", list);
+		}
+
+		if (submit.equals("Student")){
+			req.setAttribute("ent_year_set", entYearSet);
+		}
+		*/
 
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
+
 	}
 
 	private void setTestListSubject(HttpServletRequest req, HttpServletResponse res){
-		//
+
 	}
 
 	private void setTestListStudent(HttpServletRequest req, HttpServletResponse res){
-		//
+
 	}
 
 }

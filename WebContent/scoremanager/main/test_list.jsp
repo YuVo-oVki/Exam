@@ -34,7 +34,7 @@ pageEncoding="UTF-8" %>
 								<c:forEach var="num" items="${num}">
 									<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
 									<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
-								</c:forEach>
+									</c:forEach>
 						</select>
 					</div>
 					<div class="col-4">
@@ -48,7 +48,7 @@ pageEncoding="UTF-8" %>
 						</select>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button">検索</button>
+						<button class="btn btn-secondary" name="submit" value="Subject" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
@@ -65,7 +65,7 @@ pageEncoding="UTF-8" %>
 								</c:forEach>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button">検索</button>
+						<button class="btn btn-secondary" name="submit" value="Student" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f4")}</div>
 				</div>

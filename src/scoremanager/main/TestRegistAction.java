@@ -36,7 +36,6 @@ public class TestRegistAction extends Action {
 		teacher.setName("大原花子");
 		teacher.setSchool(school);
 
-
 		String entYearStr="";
 		String classNum="";
 		String sub="";
