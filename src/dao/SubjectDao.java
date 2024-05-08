@@ -64,11 +64,8 @@ public class SubjectDao extends Dao {
 		String order = " order by cd asc";
 		try {
 			statement = connection.prepareStatement(baseSql + order);
-			statement.setString(1, school);
-			statement.setInt(2, entYear);
-			statement.setString(3, classNum);
+			statement.setString(1, school.getCd());
 			rSet = statement.executeQuery();
-
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -142,7 +139,38 @@ public class SubjectDao extends Dao {
 	}
 
 
-    boolean delete(Subject subject) {
+    public boolean delete(Subject subject) throws Exception {
+    	Connection connection = getConnection();
+		PreparedStatement statement = null;
+		int count = 0;
+		School school = new School();
 
+		try {
+			statement = connection.prepareStatement("delete from subject where cd=?");
+			statement.setString(1, subject.getCd());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
     };
 }
