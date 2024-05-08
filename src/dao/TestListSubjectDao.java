@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.School;
 import bean.Student;
 import bean.TestListStudent;
 
@@ -18,6 +19,7 @@ public class TestListSubjectDao extends Dao{
 		List<Student> list = new ArrayList<>();
 		try {
 			while (rSet.next()) {
+				School school=new School();
 				Student student = new Student();
 				student.setNo(rSet.getString("no"));
 				student.setName(rSet.getString("name"));
@@ -45,6 +47,8 @@ public class TestListSubjectDao extends Dao{
 			conditionIsAttend = "and is_attend=true";
 		}
 		try {
+			School school=new School();
+			School subject=new School();
 			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
 			statement.setInt(1, student.getEntYear());
 			statement.setString(2, student.getClassNum());
@@ -72,6 +76,4 @@ public class TestListSubjectDao extends Dao{
 
 		return list;
 	}
-
-
 }
