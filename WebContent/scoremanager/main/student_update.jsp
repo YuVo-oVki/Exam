@@ -18,7 +18,7 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "StudentUpdate.action" method="post">
+			<form action = "StudentCreateExecute.action" method="post">
 				<div class="mx-3 py-2">
 					<div class="my-3">
 						<label class="form-label" for="student-ent_year-input">入学年度</label>
@@ -33,7 +33,7 @@
 					<div class="my-3">
 						<label class="form-label" for="student-name-input">氏名</label>
 						<input class="form-control" type="text" id="student-name-input"
-							name="name" placeholder="氏名を入力してください" maxlength="10"
+							name="name"  maxlength="10"
 							value="${name}" required />
 						<div class="mt-2 text-warning">${errors.get("name")}</div>
 					</div>
