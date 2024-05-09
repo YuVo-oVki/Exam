@@ -89,7 +89,7 @@ pageEncoding="UTF-8" %>
 									<td>${student.name}</td>
 							</c:forEach>
 							<c:forEach var="point" items="${points}">
-									<!-- <td>point_${student.cd}</td> -->
+									<td>point_${student.cd}</td>
 							</c:forEach>
 						</tr>
 					</table>

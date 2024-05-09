@@ -62,7 +62,7 @@ pageEncoding="UTF-8" %>
 			</form>
 
 				<h2>科目:${f3}（${f4}回）</h2>
-					<table>
+					<table class="table table-hover">
 						<tr>
 							<th>入学年度</th>
 							<th>クラス</th>
