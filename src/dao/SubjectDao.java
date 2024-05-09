@@ -143,7 +143,6 @@ public class SubjectDao extends Dao {
     	Connection connection = getConnection();
 		PreparedStatement statement = null;
 		int count = 0;
-		School school = new School();
 
 		try {
 			statement = connection.prepareStatement("delete from subject where cd=?");

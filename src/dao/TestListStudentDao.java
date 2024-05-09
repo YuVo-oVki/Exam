@@ -24,7 +24,7 @@ public class TestListStudentDao extends Dao{
 		try {
 			while (rSet.next()) {
 				Subject subject = new Subject();
-				subject.set(rSet.getString("no"));
+				subject.setCd(rSet.getString("no"));
 			}
 		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
