@@ -2,20 +2,34 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
 import bean.Student;
+import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao{
 
 	private String baseSql = "SELECT * FROM STUDENT";
 	School school = new School();
 
-	public List<Student> filter(Student student) throws Exception {
-		List<Student> list = new ArrayList<>();
+	private List<TestListStudent> postFilter(ResultSet rSet, School school) throws Exception {
+		List<TestListStudent> list = new ArrayList<>();
+		try {
+			while (rSet.next()) {
+				// ココカラファイン
+			}
+		} catch (SQLException | NullPointerException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<TestListStudent> filter(Student student) throws Exception {
+		List<TestListStudent> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		String classNum="";
@@ -50,8 +64,5 @@ public class TestListStudentDao extends Dao{
 
 		return list;
 	}
-
-// 未来の自分へ
-//	ごめん僕には無理だった
 
 }
