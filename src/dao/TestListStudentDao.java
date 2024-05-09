@@ -21,8 +21,8 @@ public class TestListStudentDao extends Dao{
 		String classNum="";
 		int entYear = 0;
 
-		String condition = "JOIN TEST ON STUDENT.NO = TEST.STUDENT_NO;";
-		String conditionIsAttend = "";
+		String condition = "JOIN TEST ON STUDENT.NO = TEST.STUDENT_NO";
+		String conditionIsAttend = "WHERE STUDENT.IS_ATTEND = TRUE;";
 
 		try {
 			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend);
@@ -51,5 +51,6 @@ public class TestListStudentDao extends Dao{
 		return list;
 	}
 
-//a
+// 見たいの自分へ
+//	ごめん僕には無理だった
 }
