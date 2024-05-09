@@ -51,6 +51,6 @@ public class TestListStudentDao extends Dao{
 		return list;
 	}
 
-// 見たいの自分へ
+// 未来の自分へ
 //	ごめん僕には無理だった
 }
