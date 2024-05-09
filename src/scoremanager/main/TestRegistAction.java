@@ -89,10 +89,6 @@ public class TestRegistAction extends Action {
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", no);
 		req.setAttribute("f4", name);
-		if (isAttendStr != null) {
-			isAttend = true;
-			req.setAttribute("f5", isAttendStr);
-		}
 
 		req.setAttribute("students", students);
 		req.setAttribute("subjects", subjects);
