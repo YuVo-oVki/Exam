@@ -12,7 +12,7 @@ pageEncoding="UTF-8" %>
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
-			<form method="get">
+			<form method="get" action="?">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-2">
 						科目情報
@@ -48,10 +48,12 @@ pageEncoding="UTF-8" %>
 						</select>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" name="submit" value="Subject" id="filter-button">検索</button>
+						<button class="btn btn-secondary" value="test_list_subject" formaction="TestListSubject.action" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
+			</form>
+			<form method="get" action="?">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-2">
 						学生情報
@@ -65,7 +67,7 @@ pageEncoding="UTF-8" %>
 								</c:forEach>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" name="submit" value="Student" id="filter-button">検索</button>
+						<button type="submit" value="test_list_student" formaction="TestListStudent.action" class="btn btn-secondary" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f4")}</div>
 				</div>
@@ -76,7 +78,8 @@ pageEncoding="UTF-8" %>
 							<th>クラス</th>
 							<th>学生番号</th>
 							<th>氏名</th>
-							<th>回数</th>
+							<th>1回</th>
+							<th>2回</th>
 						</tr>
 						<tr>
 							<c:forEach var="student" items="${students}">

@@ -58,7 +58,6 @@ public class TestRegistAction extends Action {
 		classNum = req.getParameter("f2");
 		sub = req.getParameter("f3");
 		noStr = req.getParameter("f4");
-		isAttendStr = req.getParameter("f5");
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
@@ -94,8 +93,6 @@ public class TestRegistAction extends Action {
 			isAttend = true;
 			req.setAttribute("f5", isAttendStr);
 		}
-
-		// ここで条件検索の文を書く
 
 		req.setAttribute("students", students);
 		req.setAttribute("subjects", subjects);

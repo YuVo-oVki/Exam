@@ -8,23 +8,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
 import bean.Student;
 import bean.Subject;
+import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao{
 
 	private String baseSql = "select * from student where school_cd=? ";
-	School school = new School();
 
-	private List<Subject> postFilter(ResultSet rSet) throws Exception {
-
-		List<Subject> list = new ArrayList<>();
+	private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
+		List<TestListStudent> list = new ArrayList<>();
 
 		try {
 			while (rSet.next()) {
-				Subject subject = new Subject();
-				subject.set(rSet.getString("no"));
+				TestListStudent tls = new TestListStudent();
+				Student student = new Student();
+				tls.setSubjectName(rSet.getString("name"));
+				tls.setSubjectCd(rSet.getString("cd"));
+				tls.setNum(rSet.getInt("num"));
+				tls.setPoint(rSet.getInt("point"));
 			}
 		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
@@ -32,7 +34,8 @@ public class TestListStudentDao extends Dao{
 		return list;
 	}
 
-	public List<Student> filter(Student student) throws Exception {
+
+	public List<TestListStudent> filter(Student student) throws Exception {
 		List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;

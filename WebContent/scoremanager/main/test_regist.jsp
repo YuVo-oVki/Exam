@@ -61,15 +61,14 @@ pageEncoding="UTF-8" %>
 				</div>
 			</form>
 
-			<!-- <c:choose> -->
-				<!-- <h2>科目:"${f3}"（"${f4}"回）</h2> -->
+				<h2>科目:${f3}（${f4}回）</h2>
 					<table>
 						<tr>
 							<th>入学年度</th>
 							<th>クラス</th>
 							<th>学生番号</th>
 							<th>氏名</th>
-							<th>回数</th>
+							<th>点数</th>
 						</tr>
 						<tr>
 							<c:forEach var="student" items="${students}">
@@ -77,7 +76,7 @@ pageEncoding="UTF-8" %>
 									<td>${student.classNum}</td>
 							</c:forEach>
 							<c:forEach var="subject" items="${subjects}">
-									<td>${subject.name}</td>
+									<td>${subject.cd}</td>
 							</c:forEach>
 							<c:forEach var="test" items="${tests}">
 									<td>${test.num}</td>
@@ -87,7 +86,6 @@ pageEncoding="UTF-8" %>
 							</c:forEach>
 						</tr>
 					</table>
-			<!-- </c:choose> -->
 		</section>
 	</c:param>
 </c:import>
