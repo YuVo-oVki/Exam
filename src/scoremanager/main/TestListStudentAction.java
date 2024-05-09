@@ -13,7 +13,7 @@ import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
 
-public class TestListAction extends Action {
+public class TestListStudentAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
