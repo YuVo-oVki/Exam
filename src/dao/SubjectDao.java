@@ -56,6 +56,7 @@ public class SubjectDao extends Dao {
 		return subject;
 	}
 
+
 	public List<Subject> filter(School school) throws Exception {
 		List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
