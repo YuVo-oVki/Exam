@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
@@ -38,22 +39,47 @@ public class TestDao extends Dao {
 	}
 
 	private List<Test> postFilter(ResultSet rSet, School school) throws Exception {
-		List<Test> list = new
+		List<Test> list = new ArrayList<>();
+		Connection connection = getConnection();
+		return list;
 	}
 
     public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
+    	List<Test> list = new ArrayList<>();
+		Connection connection = getConnection();
+		return list;
     }
 
     public boolean save(List<Test> list) throws Exception {
+    	Connection connection = getConnection();
+		PreparedStatement statement = null;
+		int count = 0;
+		School school = new School();
+		return false;
     }
 
     public boolean save(Test test, Connection connection) throws Exception {
+    	Connection connection2 = getConnection();
+		PreparedStatement statement = null;
+		int count = 0;
+		School school = new School();
+		return false;
     }
 
     public boolean delete(List<Test> list) throws Exception {
+    	Connection connection = getConnection();
+		PreparedStatement statement = null;
+		int count = 0;
+		School school = new School();
+		return false;
     }
 
     public boolean delete(Test test, Connection connection) throws Exception {
+    	Connection connection2 = getConnection();
+		PreparedStatement statement = null;
+		int count = 0;
+		School school = new School();
+		return false;
     }
 }
 
