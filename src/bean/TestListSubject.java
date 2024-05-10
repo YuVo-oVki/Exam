@@ -57,12 +57,8 @@ public class TestListSubject implements Serializable {
     }
 
     public String getPoint(int key) {
-        if (points.containsKey(key)) {
             return String.valueOf(points.get(key));
-        } else {
-            return "Key not found";
         }
-    }
 
     public void putPoint(int key, int value) {
         points.put(key, value);
