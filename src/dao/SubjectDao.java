@@ -66,6 +66,16 @@ public class SubjectDao extends Dao {
 			statement = connection.prepareStatement(baseSql + order);
 			statement.setString(1, school.getCd());
 			rSet = statement.executeQuery();
+			try {
+				while (rSet.next()) {
+					Subject subject = new Subject();
+					subject.setCd(rSet.getString("cd"));
+					subject.setName(rSet.getString("name"));
+					list.add(subject);
+				}
+			} catch (SQLException | NullPointerException e) {
+				e.printStackTrace();
+			}
 		} catch (Exception e) {
 			throw e;
 		} finally {

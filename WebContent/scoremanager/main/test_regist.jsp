@@ -48,6 +48,8 @@ pageEncoding="UTF-8" %>
 						<label class="form-label" for="test-f4-select">回数</label>
 							<select class="form-select" id="test-f4-select" name="f4">
 								<option value="0">--------</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
 								<c:forEach var="num" items="${num}">
 									<%-- 現在のnumと選択されていたf4が一致していた場合selectedを追記 --%>
 									<option value="${num}" <c:if test="${num==f4}">selected</c:if>>${num}</option>
@@ -55,12 +57,14 @@ pageEncoding="UTF-8" %>
 						</select>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button">検索</button>
+						<button class="btn btn-secondary" value="clicked" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
 			</form>
 
+			<!--c:choose  -->
+			<!-- c:when -->
 				<h2>科目:${f3}（${f4}回）</h2>
 					<table class="table table-hover">
 						<tr>
@@ -71,21 +75,17 @@ pageEncoding="UTF-8" %>
 							<th>点数</th>
 						</tr>
 						<tr>
-							<c:forEach var="student" items="${students}">
-									<td>${student.entYear}</td>
-									<td>${student.classNum}</td>
-							</c:forEach>
-							<c:forEach var="subject" items="${subjects}">
-									<td>${subject.cd}</td>
-							</c:forEach>
-							<c:forEach var="test" items="${tests}">
-									<td>${test.num}</td>
-							</c:forEach>
+							<td>${f1}</td>
+							<td>${f2}</td>
+							<td>${f3}</td>
+							<td>${f4}</td>
 							<c:forEach var="point" items="${points}">
 									<td>point_${student.cd}</td>
 							</c:forEach>
 						</tr>
 					</table>
+				<!-- /c:when -->
+			<!-- /c:choose -->
 		</section>
 	</c:param>
 </c:import>
