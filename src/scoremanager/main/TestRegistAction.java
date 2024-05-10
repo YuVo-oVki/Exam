@@ -95,8 +95,6 @@ public class TestRegistAction extends Action {
 			req.setAttribute("f5", isAttendStr);
 		}
 
-		// ここで条件検索の文を書く
-
 		req.setAttribute("students", students);
 		req.setAttribute("subjects", subjects);
 		req.setAttribute("class_num_set", list);

@@ -21,9 +21,9 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 
 		try {
-			statement = connection.prepareStatement("select * from subject where cd=? and school_cd=?");
-			statement.setString(1, cd);
-			statement.setString(2, school.getCd());
+			statement = connection.prepareStatement(baseSql + " and cd=?");
+			statement.setString(1, school.getCd());
+			statement.setString(2, cd);
 			ResultSet rSet = statement.executeQuery();
 			SchoolDao schoolDao = new SchoolDao();
 
@@ -154,7 +154,6 @@ public class SubjectDao extends Dao {
     	Connection connection = getConnection();
 		PreparedStatement statement = null;
 		int count = 0;
-		School school = new School();
 
 		try {
 			statement = connection.prepareStatement("delete from subject where cd=?");
