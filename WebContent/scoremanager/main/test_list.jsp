@@ -81,17 +81,19 @@ pageEncoding="UTF-8" %>
 							<th>1回</th>
 							<th>2回</th>
 						</tr>
-						<tr>
-							<c:forEach var="student" items="${students}">
+						<c:forEach var="student" items="${students}">
+							<tr>
 									<td>${student.entYear}</td>
 									<td>${student.num}</td>
 									<td>${student.cd}</td>
 									<td>${student.name}</td>
-							</c:forEach>
-							<c:forEach var="point" items="${points}">
-									<td>point_${student.cd}</td>
-							</c:forEach>
-						</tr>
+							</tr>
+						</c:forEach>
+						<c:forEach var="point" items="${points}">
+							<th>
+								<td>point_${student.cd}</td>
+							</th>
+						</c:forEach>
 					</table>
 		</section>
 	</c:param>
