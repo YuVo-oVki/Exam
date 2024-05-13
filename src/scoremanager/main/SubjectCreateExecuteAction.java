@@ -46,24 +46,17 @@ public class SubjectCreateExecuteAction extends Action {
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
-		//条件で手順4~5の内容が分岐
-
-
 		if (subject == null) {// 科目が未登録だった場合
 			// 科目インスタンスを初期化
 			subject = new Subject();
 			// インスタンスに値をセット
 			subject.setCd(cd);
 			subject.setName(name);
-
 			// 科目を保存
 			sDao.save(subject);
 		} else {//入力された学番がDBに保存されていた場合
 			errors.put("cd", "学生番号が重複しています");
 		}
-
-
-
 
 		//JSPへフォワード 7
 
