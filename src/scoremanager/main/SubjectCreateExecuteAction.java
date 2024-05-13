@@ -22,6 +22,7 @@ public class SubjectCreateExecuteAction extends Action {
 		String cd ="";		//科目コード
 		String name = "";	//科目名
 		Subject subject = null;//科目
+		int count =0;	//文字数
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 
 		School school=new School();
@@ -42,21 +43,29 @@ public class SubjectCreateExecuteAction extends Action {
 		//DBからデータ取得 3
 		subject = sDao.get(cd,school);//科目インスタンス
 
-
+		//入力された科目コードの文字数をcountへ
+		count = cd.length();
 
 		//ビジネスロジック 4
 		//DBへデータ保存 5
-		if (subject == null) {// 科目が未登録だった場合
-			// 科目インスタンスを初期化
-			subject = new Subject();
-			// インスタンスに値をセット
-			subject.setCd(cd);
-			subject.setName(name);
-			// 科目を保存
-			sDao.save(subject);
-		} else {//入力された学番がDBに保存されていた場合
-			errors.put("cd", "学生番号が重複しています");
+
+		if(count != 3){//科目コードが3文字ではない場合
+			errors.put("cd", "科目コードは3文字で入力してください");
 		}
+			else if (subject == null) {// 科目が未登録だった場合
+				// 科目インスタンスを初期化
+				subject = new Subject();
+				// インスタンスに値をセット
+				subject.setSchool(school);
+				subject.setCd(cd);
+				subject.setName(name);
+
+				// 科目を保存
+				sDao.save(subject);
+			} else {//入力された学番がDBに保存されていた場合
+				errors.put("cd", "学生番号が重複しています");
+			}
+
 
 		//JSPへフォワード 7
 
