@@ -39,6 +39,7 @@ public class StudentUpdateAction extends Action {
 		teacher.setName("大原花子");
 		teacher.setSchool(school);
 
+		//jspのnoをゲットして
 		String no = req.getParameter("no");
 		sDao.get(no);
 		int entYear = stu.getEntYear();
