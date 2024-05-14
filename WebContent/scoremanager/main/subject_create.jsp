@@ -19,9 +19,9 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "StudentCreateExecute.action" method="post">
+			<form action = "SubjectCreateExecute.action" method="post">
 				<div class="mx-3 py-2">
-				
+
 				<%-- 科目コードの入力欄 --%>
 					<div class="mb-3">
 						<label class="form-label" for="subject-cd-input">科目コード</label>

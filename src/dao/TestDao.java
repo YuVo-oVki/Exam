@@ -24,7 +24,7 @@ public class TestDao extends Dao {
 		PreparedStatement statement = null;
 
 		try {
-			statement = connection.prepareStatement(baseSql + ", ent_year=?, class_num=?, cd=?");
+			statement = connection.prepareStatement(baseSql + " and ent_year=? and class_num=? and cd=?");
 			statement.setString(1, school.getCd());
 	        statement.setInt(2, student.getEntYear());
 	        statement.setString(3, student.getClassNum());
@@ -47,8 +47,45 @@ public class TestDao extends Dao {
     public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
     	List<Test> list = new ArrayList<>();
 		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		ResultSet rSet = null;
+
+		if (/*科目管理の検索ボタンが押されたら*/) {
+			String subCondition = baseSql + " inner join student on subject.school_cd = student.school_cd and subject.cd";
+			statement.setInt(1, school);
+			statement.setString(2, classNum);
+			statement.
+		} else if (/*学生管理の検索ボタンが押されたら*/) {
+			String stuCondition = baseSql + "inner join student on ";
+		}
+		try {
+			statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
+			statement.setString(1, school.getCd());
+			statement.setInt(2, entYear);
+			statement.setString(3, classNum);
+			rSet = statement.executeQuery();
+			list = postFilter(rSet, school);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
 		return list;
-    }
+	}
 
     public boolean save(List<Test> list) throws Exception {
     	Connection connection = getConnection();
@@ -82,6 +119,3 @@ public class TestDao extends Dao {
 		return false;
     }
 }
-
-//これを何か色々すると完成する
-//あ、駄目だわっかんね
