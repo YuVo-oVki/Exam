@@ -118,4 +118,13 @@ public class TestDao extends Dao {
 		School school = new School();
 		return false;
     }
+<<<<<<< HEAD
 }
+
+//これを何か色々すると完成する
+//あ、駄目だわっかんね
+
+//ぬるぬるぬるぬるぬるぬぬるぬんるぬぬｒぬｒぬ
+=======
+}
+>>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam
