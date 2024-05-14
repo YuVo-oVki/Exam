@@ -25,7 +25,7 @@ public class StudentCreateAction extends Action {
 		int year = todaysDate.getYear();// 現在の年を取得
 		List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
 		School school=new School();
-		school.setCd("OOM");
+		school.setCd("oom");
 		school.setName("学校名");
 
 		Teacher teacher = new Teacher();
