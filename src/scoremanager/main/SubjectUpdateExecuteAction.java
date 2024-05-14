@@ -2,7 +2,6 @@ package scoremanager.main;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
-public class SubjectDeleteExcuteAction extends Action {
+public class SubjectUpdateExecuteAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -24,7 +23,9 @@ public class SubjectDeleteExcuteAction extends Action {
 		HttpSession session = req.getSession(true);// セッションを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		String cd = "";
+		String name = "";
 		Student stu = new Student();
+		Subject subject = null;
 		SubjectDao sDao = new SubjectDao();
 		Map<String, String> errors = new HashMap<>();
 		//Subject subject = (Subject) session.getAttribute("user");// ログインユーザーを取得
@@ -35,32 +36,33 @@ public class SubjectDeleteExcuteAction extends Action {
 		school.setCd("oom");
 		school.setName("学校名");
 
-        Subject subject= new Subject();
-        subject.setCd("A02");
-        subject.setName("国語");
 
         cd = req.getParameter("cd");//科目コード
-		school = req.getParameter("school");//科目名
-
+        name = req.getParameter("name");
 		subject = sDao.get(cd, school);// 学生番号から学生インスタンスを取得
-		List<String> list = cNumDao.filter(subject.getSchool());// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
+
+		subject = new Subject();
+		subject.setCd(cd);
+		subject.setSchool(school);
+		subject.setName(name);
 		sDao.save(subject);
+
 
 		//JSPへフォワード
 		req.setAttribute("cd_set", cd);
-		req.setAttribute("school_set", school);
+		req.setAttribute("name_set", name);
 
 		if(!errors.isEmpty()){
 			// リクエスト属性をセット
 			req.setAttribute("errors", errors);
 			req.setAttribute("cd", cd);
-			req.setAttribute("school",school );
+			req.setAttribute("name",name );
 			req.getRequestDispatcher("SubjectUpdate.jsp").forward(req, res);
 			return;
 		}
 
-		req.getRequestDispatcher("SubjectDeleteDone.jsp").forward(req, res);
+		req.getRequestDispatcher("SubjectUpdateDone.jsp").forward(req, res);
 	}
 }
 

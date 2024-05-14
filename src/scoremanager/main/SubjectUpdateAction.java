@@ -21,6 +21,7 @@ public class SubjectUpdateAction extends Action {
 		HttpSession session = req.getSession(true);// セッションを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 		Student stu = new Student();
+		Subject subject = null;
 		SubjectDao sDao = new SubjectDao();
 		//Subject subject = (Subject) session.getAttribute("user");// ログインユーザーを取得
 		LocalDate todaysDate = LocalDate.now();// LocalDateインスタンスを取得
@@ -30,17 +31,14 @@ public class SubjectUpdateAction extends Action {
 		school.setCd("oom");
 		school.setName("学校名");
 
-        Subject subject= new Subject();
-        subject.setCd("A02");
-        subject.setName("国語");
-
         String cd = req.getParameter("cd");
+        String name = req.getParameter("name");
 		sDao.get(cd, school);
 		school = stu.getSchool();
 
 		//JSPへフォワード
 		req.setAttribute("cd_set", cd);
-		req.setAttribute("school_set", school);
+		req.setAttribute("name_set", name);
 		req.getRequestDispatcher("SubjectUpdate.jsp").forward(req, res);
 	}
 }

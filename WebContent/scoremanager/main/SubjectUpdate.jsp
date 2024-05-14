@@ -18,18 +18,18 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "SubjectUpdate.action" method="post">
+			<form action = "SubjectUpdateExecute.action" method="post">
 				<div class="mx-3 py-2">
 					<div class="my-3">
-						<label class="form-label" for="student-ent_year-input">科目コード</label>
-						<input class="form-control" type="text" id="student-ent_year-input" name="ent_year"
-							value="A02" maxlength="10" readonly />
+						<label class="form-label" for="subject-cd-input">科目コード</label>
+						<input class="form-control" type="text" id="subject-cd-input" name="cd"
+							value="${cd_set}" maxlength="10" readonly />
 					</div>
 					<div class="my-3">
-						<label class="form-label" for="student-name-input">科目名</label>
-						<input class="form-control" type="text" id="student-name-input"
+						<label class="form-label" for="subject-name-input">科目名</label>
+						<input class="form-control" type="text" id="subject-name-input"
 							name="name"  placeholder="科目名を入力してください" maxlength="10"
-							value="${name}" required />
+							value="${subject.name}" required />
 						<div class="mt-2 text-warning">${errors.get("name")}</div>
 					</div>
 
@@ -43,7 +43,7 @@
 			</form>
 			<div class="lh-lg row">
 				<div class="mx-3 col-1">
-					<a href="StudentList.action">戻る</a>
+					<a href="subject_list.jsp">戻る</a>
 				</div>
 			</div>
 		</section>

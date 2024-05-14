@@ -104,6 +104,7 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 		int count = 0;
 		School school = new School();
+		school.setCd("oom");
 
 		try {
 			Subject old = get(subject.getCd(), school);
@@ -115,7 +116,7 @@ public class SubjectDao extends Dao {
 				statement.setString(3, subject.getName());
 			} else {
 				statement = connection
-						.prepareStatement("update subject set school_cd=?, cd=?, name=?, where cd=?");
+						.prepareStatement("update subject set school_cd=?, cd=?, name=? where cd=?");
 				statement.setString(1, subject.getSchool().getCd());
 				statement.setString(2, subject.getCd());
 				statement.setString(3, subject.getName());

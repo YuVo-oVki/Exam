@@ -18,19 +18,14 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "StudentDeleteExcute.action" method="post">
-				<div class="mx-3 py-2">
-					<div class="my-3">
-						<label class="form-label" for="student-ent_year-input">○○を削除してもよろしいですか？</label>
-
-					</div>
+			<form action = "SubjectDeleteExecute.action" method="post">
+					<div>${name_set}(${cd_set})を削除してもよろしいですか？</div>
 						<input class="btn btn-secondary" type="submit" value="削除" name="end">
-					</div>
-				</div>
+
 			</form>
 			<div class="lh-lg row">
 				<div class="mx-3 col-1">
-					<a href="StudentList.action">戻る</a>
+					<a href="SubjectList.action">戻る</a>
 				</div>
 			</div>
 		</section>

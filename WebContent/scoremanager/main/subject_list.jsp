@@ -33,7 +33,7 @@
 								<td>${subject.name}</td>
 
 								<td><a href="SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
-								<td><a href="SubjectDeleate.action?cd=${sucject.cd}">削除</a></td>
+								<td><a href="SubjectDelete.action?cd=${subject.cd}">削除</a></td>
 
 							</tr>
 						</c:forEach>
