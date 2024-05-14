@@ -20,7 +20,7 @@ public class TestListStudentDao extends Dao{
 		List<TestListStudent> list = new ArrayList<>();
 		try {
 			while (rSet.next()) {
-				// ココカラファインモーション
+				
 			}
 		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();

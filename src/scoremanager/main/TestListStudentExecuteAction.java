@@ -12,12 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Student;
+import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
+import dao.SubjectDao;
 import tool.Action;
 
-public class StudentListAction extends Action {
+public class TestListStudentExecuteAction extends Action {
+
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
@@ -34,21 +37,26 @@ public class StudentListAction extends Action {
 		teacher.setName("大原花子");
 		teacher.setSchool(school);
 
-		String entYearStr="";
-		String classNum="";
-		String isAttendStr="";
+		String entYearStr = "";
+		String classNum = "";
+		String sub="";
+		String no = "";
 		int entYear = 0;
 		boolean isAttend = false;
+		Subject subject = new Subject();
 		List<Student> students = null;
+		List<Subject> subjects = null;
+		StudentDao sDao = new StudentDao();
+		SubjectDao subDao = new SubjectDao();
+		ClassNumDao cNumDao = new ClassNumDao();
 		LocalDate todaysDate = LocalDate.now();
 		int year = todaysDate.getYear();
-		StudentDao sDao = new StudentDao();
-		ClassNumDao cNumDao = new ClassNumDao();
 		Map<String, String> errors = new HashMap<>();
 
 		entYearStr = req.getParameter("f1");
 		classNum = req.getParameter("f2");
-		isAttendStr = req.getParameter("f3");
+		sub = req.getParameter("f3");
+		no = req.getParameter("f4");
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
@@ -68,6 +76,7 @@ public class StudentListAction extends Action {
 			// 全学年情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
+		subjects = subDao.filter(school);
 
 		List<Integer> entYearSet = new ArrayList<>();
 		for (int i = year - 10; i < year + 1; i++) {
@@ -76,15 +85,23 @@ public class StudentListAction extends Action {
 
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
+		req.setAttribute("f3", sub);
+		req.setAttribute("f4", no);
 
-		if (isAttendStr != null) {
-			isAttend = true;
-			req.setAttribute("f3", isAttendStr);
-		}
-		req.setAttribute("students", students);
-		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("num", list);
+		req.setAttribute("sub", subject.getName()); // ここで科目の名前を収集したい
 
-		req.getRequestDispatcher("student_list.jsp").forward(req, res);
+		req.getRequestDispatcher("test_list.jsp").forward(req, res);
+
 	}
+
+	private void setTestListSubject(HttpServletRequest req, HttpServletResponse res){
+		// req.getRequestDispatcher("test_list_subject.jsp").forward(req, res);
+	}
+
+	private void setTestListStudent(HttpServletRequest req, HttpServletResponse res){
+		// req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+	}
+
 }

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Student;
+import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
+import dao.SubjectDao;
 import tool.Action;
 
 public class TestListAction extends Action {
@@ -38,11 +40,14 @@ public class TestListAction extends Action {
 		String entYearStr = "";
 		String classNum = "";
 		String sub="";
-		String noStr = "";
+		String no = "";
 		int entYear = 0;
 		boolean isAttend = false;
+		Subject subject = new Subject();
 		List<Student> students = null;
+		List<Subject> subjects = null;
 		StudentDao sDao = new StudentDao();
+		SubjectDao subDao = new SubjectDao();
 		ClassNumDao cNumDao = new ClassNumDao();
 		LocalDate todaysDate = LocalDate.now();
 		int year = todaysDate.getYear();
@@ -51,7 +56,7 @@ public class TestListAction extends Action {
 		entYearStr = req.getParameter("f1");
 		classNum = req.getParameter("f2");
 		sub = req.getParameter("f3");
-		noStr = req.getParameter("f4");
+		no = req.getParameter("f4");
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
@@ -71,24 +76,32 @@ public class TestListAction extends Action {
 			// 全学年情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
+		subjects = subDao.filter(school);
 
 		List<Integer> entYearSet = new ArrayList<>();
 		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
 
-		// req.setAttribute("year", list);
+		req.setAttribute("f1", entYear);
+		req.setAttribute("f2", classNum);
+		req.setAttribute("f3", sub);
+		req.setAttribute("f4", no);
+
+		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("num", list);
+		req.setAttribute("sub", subject.getName()); // ここで科目の名前を収集したい
 
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 
 	}
 
 	private void setTestListSubject(HttpServletRequest req, HttpServletResponse res){
-
+		// req.getRequestDispatcher("test_list_subject.jsp").forward(req, res);
 	}
 
 	private void setTestListStudent(HttpServletRequest req, HttpServletResponse res){
-
+		// req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
 	}
 
 }

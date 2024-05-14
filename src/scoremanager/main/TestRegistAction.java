@@ -40,6 +40,7 @@ public class TestRegistAction extends Action {
 		String classNum="";
 		String sub="";
 		String noStr = "";
+		Map<Integer, Integer> points = new HashMap<>();
 		int entYear = 0;
 		int no = 0;
 		String name = "";
@@ -89,6 +90,8 @@ public class TestRegistAction extends Action {
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", no);
 		req.setAttribute("f4", name);
+		req.setAttribute("f5", points);
+
 		if (isAttendStr != null) {
 			isAttend = true;
 			req.setAttribute("f5", isAttendStr);
