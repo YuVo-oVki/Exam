@@ -62,8 +62,8 @@ public class SubjectCreateExecuteAction extends Action {
 
 				// 科目を保存
 				sDao.save(subject);
-			} else {//入力された学番がDBに保存されていた場合
-				errors.put("cd", "学生番号が重複しています");
+			} else {//入力された科目コードがDBに保存されていた場合
+				errors.put("cd", "科目コードが重複しています");
 			}
 
 
