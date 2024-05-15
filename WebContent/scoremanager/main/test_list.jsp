@@ -41,7 +41,7 @@ pageEncoding="UTF-8" %>
 						<label class="form-label" for="test-f3-select">科目</label>
 							<select class="form-select" id="test-f3-select" name="f3">
 								<option value="0">--------</option>
-								<c:forEach var="subject" items="${subjects}">
+								<c:forEach var="sub" items="${sub}">
 									<%-- 現在のsubject,cdと選択されていたf3が一致していた場合selectedを追記 --%>
 									<option value="${sub}" <c:if test="${sub==f3}">selected</c:if>>${sub}</option>
 								</c:forEach>
