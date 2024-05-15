@@ -117,4 +117,8 @@ public class TestDao extends Dao {
 		School school = new School();
 		return false;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam
