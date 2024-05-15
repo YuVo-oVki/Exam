@@ -52,7 +52,7 @@ public class TestDao extends Dao {
 
 		if (/*科目管理の検索ボタンが押されたら*/) {
 			String subCondition = baseSql + " inner join student on subject.school_cd = student.school_cd and subject.cd";
-			statement.setInt(1, school);
+			statement.setString(1, school.getCd());
 			statement.setString(2, classNum);
 		} else if (/*学生管理の検索ボタンが押されたら*/) {
 			String stuCondition = baseSql + "inner join student on ";
@@ -117,13 +117,4 @@ public class TestDao extends Dao {
 		School school = new School();
 		return false;
     }
-<<<<<<< HEAD
 }
-
-//これを何か色々すると完成する
-//あ、駄目だわっかんね
-
-//ぬるぬるぬるぬるぬるぬぬるぬんるぬぬｒぬｒぬ
-=======
-}
->>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam

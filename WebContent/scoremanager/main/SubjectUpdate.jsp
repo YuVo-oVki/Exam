@@ -21,28 +21,15 @@
 			<form action = "SubjectUpdateExecute.action" method="post">
 				<div class="mx-3 py-2">
 					<div class="my-3">
-<<<<<<< HEAD
-						<label class="form-label" for="subject-cd-input">科目コード</label>
-						<input class="form-control" type="text" id="subject-cd-input" name="cd"
-							value="${cd_set}" maxlength="10" readonly />
-=======
 						<label class="form-label" for="student-ent_year-input">科目コード</label>
 						<input class="form-control" type="text" id="student-ent_year-input" name="cd"
-							value="${cd}" maxlength="10" readonly />
->>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam.git
+							value="${cd_set}" maxlength="10" readonly />
 					</div>
 					<div class="my-3">
-<<<<<<< HEAD
-						<label class="form-label" for="subject-name-input">科目名</label>
-						<input class="form-control" type="text" id="subject-name-input"
-							name="name"  placeholder="科目名を入力してください" maxlength="10"
-							value="${subject.name}" required />
-=======
 						<label class="form-label" for="student-name-input">科目名</label>
 						<input class="form-control" type="text" id="student-name-input"
 							name="name"  placeholder="科目名を入力してください" maxlength="20"
 							value="${name}" required />
->>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam.git
 						<div class="mt-2 text-warning">${errors.get("name")}</div>
 					</div>
 
@@ -56,11 +43,7 @@
 			</form>
 			<div class="lh-lg row">
 				<div class="mx-3 col-1">
-<<<<<<< HEAD
-					<a href="subject_list.jsp">戻る</a>
-=======
 					<a href="SubjectList.action">戻る</a>
->>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam.git
 				</div>
 			</div>
 		</section>
