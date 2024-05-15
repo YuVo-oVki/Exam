@@ -63,8 +63,7 @@ pageEncoding="UTF-8" %>
 				</div>
 			</form>
 
-			<!--c:choose  -->
-			<!-- c:when -->
+
 				<h2>科目:${f3}（${f4}回）</h2>
 					<table class="table table-hover">
 						<tr>
@@ -84,8 +83,6 @@ pageEncoding="UTF-8" %>
 							</c:forEach>
 						</tr>
 					</table>
-				<!-- /c:when -->
-			<!-- /c:choose -->
 		</section>
 	</c:param>
 </c:import>

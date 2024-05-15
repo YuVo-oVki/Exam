@@ -12,7 +12,7 @@ pageEncoding="UTF-8" %>
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
-			<form method="get" action="?">
+			<form method="get" action="TestListSubject.action">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-2">
 						科目情報
@@ -43,17 +43,17 @@ pageEncoding="UTF-8" %>
 								<option value="0">--------</option>
 								<c:forEach var="subject" items="${subjects}">
 									<%-- 現在のsubject,cdと選択されていたf3が一致していた場合selectedを追記 --%>
-									<option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.cd}</option>
+									<option value="${sub}" <c:if test="${sub==f3}">selected</c:if>>${sub}</option>
 								</c:forEach>
 						</select>
 					</div>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" value="test_list_subject" formaction="TestListSubject.action" id="filter-button">検索</button>
+						<button class="btn btn-secondary" value="test_list_subject" formaction="TestListSubjectExecute.action" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
 			</form>
-			<form method="get" action="?">
+			<form method="get" action="TestListStudent.action">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-2">
 						学生情報
@@ -63,11 +63,11 @@ pageEncoding="UTF-8" %>
 							<input class="form-select" id="test-f4-select" name="f4">
 								<c:forEach var="num" items="${num}">
 									<%-- 現在のnumと選択されていたf4が一致していた場合selectedを追記 --%>
-									<option value="${num}" <c:if test="${num==f4}">selected</c:if>>${num}</option>
+									<option value="${num}" <c:if test="${num==f4}">selected</c:if>></option>
 								</c:forEach>
 					</div>
 					<div class="col-2 text-center">
-						<button type="submit" value="test_list_student" formaction="TestListStudent.action" class="btn btn-secondary" id="filter-button">検索</button>
+						<button type="submit" value="test_list_student" formaction="TestListStudentExecute.action" class="btn btn-secondary" id="filter-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f4")}</div>
 				</div>
@@ -83,16 +83,12 @@ pageEncoding="UTF-8" %>
 						</tr>
 						<c:forEach var="student" items="${students}">
 							<tr>
-									<td>${student.entYear}</td>
-									<td>${student.num}</td>
-									<td>${student.cd}</td>
-									<td>${student.name}</td>
-							</tr>
-						</c:forEach>
-						<c:forEach var="point" items="${points}">
-							<th>
+								<td>${student.entYear}</td>
+								<td>${student.num}</td>
+								<td>${student.cd}</td>
+								<td>${student.name}</td>
 								<td>point_${student.cd}</td>
-							</th>
+							</tr>
 						</c:forEach>
 					</table>
 		</section>
