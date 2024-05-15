@@ -51,7 +51,7 @@ public class TestDao extends Dao {
 		ResultSet rSet = null;
 
 		if () {
-			String subCondition = baseSql + " inner join student on subject.school_cd = student.school_cd and subject.cd";
+			String subCondition = baseSql + " inner join student on test.school_cd = student.school_cd and subject.cd";
 			statement.setInt(1, school);
 			statement.setString(2, classNum);
 		} else if () {
@@ -111,19 +111,10 @@ public class TestDao extends Dao {
     }
 
     public boolean delete(Test test, Connection connection) throws Exception {
-    	Connection connection2 = getConnection();
+    	Connection connection3 = getConnection();
 		PreparedStatement statement = null;
 		int count = 0;
 		School school = new School();
 		return false;
     }
-<<<<<<< HEAD
 }
-
-//これを何か色々すると完成する
-//あ、駄目だわっかんね
-
-//ぬるぬるぬるぬるぬるぬぬるぬんるぬぬｒぬｒぬ
-=======
-}
->>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam
