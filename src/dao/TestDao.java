@@ -50,11 +50,11 @@ public class TestDao extends Dao {
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
-		if (/*科目管理の検索ボタンが押されたら*/) {
+		if () {
 			String subCondition = baseSql + " inner join student on subject.school_cd = student.school_cd and subject.cd";
 			statement.setInt(1, school);
 			statement.setString(2, classNum);
-		} else if (/*学生管理の検索ボタンが押されたら*/) {
+		} else if () {
 			String stuCondition = baseSql + "inner join student on ";
 		}
 		try {
