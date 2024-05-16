@@ -83,10 +83,12 @@ public class TestListSubjectExecuteAction extends Action {
 			entYearSet.add(i);
 		}
 
+		/*
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", sub);
 		req.setAttribute("f4", no);
+		*/
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("num", list);

@@ -58,7 +58,7 @@ public class TestListAction extends Action {
 		sub = req.getParameter("f3");
 		no = req.getParameter("f4");
 
-		List<String> list = cNumDao.filter(teacher.getSchool());
+		List<String> clsList = cNumDao.filter(teacher.getSchool());
 
 		if (entYearStr != null) {
 			entYear = Integer.parseInt(entYearStr);
@@ -83,14 +83,9 @@ public class TestListAction extends Action {
 			entYearSet.add(i);
 		}
 
-		req.setAttribute("f1", entYear);
-		req.setAttribute("f2", classNum);
-		req.setAttribute("f3", sub);
-		req.setAttribute("f4", no);
-
 		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("num", list);
-		req.setAttribute("sub", subject.getName()); // ここで科目の名前を収集したい
+		req.setAttribute("clsNum", clsList);
+		req.setAttribute("sub", subjects); // ここで科目の名前を収集したい
 
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 

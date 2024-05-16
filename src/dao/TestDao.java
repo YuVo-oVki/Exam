@@ -50,11 +50,17 @@ public class TestDao extends Dao {
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
+<<<<<<< HEAD
 		if (/*科目管理の検索ボタンが押されたら*/) {
 			String subCondition = baseSql + " inner join student on subject.school_cd = student.school_cd and subject.cd";
 			statement.setString(1, school.getCd());
+=======
+		if () {
+			String subCondition = baseSql + " inner join student on test.school_cd = student.school_cd and subject.cd";
+			statement.setInt(1, school);
+>>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam.git
 			statement.setString(2, classNum);
-		} else if (/*学生管理の検索ボタンが押されたら*/) {
+		} else if () {
 			String stuCondition = baseSql + "inner join student on ";
 		}
 		try {
@@ -111,10 +117,16 @@ public class TestDao extends Dao {
     }
 
     public boolean delete(Test test, Connection connection) throws Exception {
-    	Connection connection2 = getConnection();
+    	Connection connection3 = getConnection();
 		PreparedStatement statement = null;
 		int count = 0;
 		School school = new School();
 		return false;
     }
 }
+<<<<<<< HEAD
+=======
+=======
+}
+>>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam
+>>>>>>> branch 'master' of https://github.com/YuVo-oVki/Exam.git

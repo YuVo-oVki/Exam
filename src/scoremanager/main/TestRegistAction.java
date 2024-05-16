@@ -36,6 +36,8 @@ public class TestRegistAction extends Action {
 		teacher.setName("大原花子");
 		teacher.setSchool(school);
 
+		Subject subject =new Subject();
+
 		String entYearStr="";
 		String classNum="";
 		String sub="";
@@ -78,7 +80,6 @@ public class TestRegistAction extends Action {
 			// 全学年情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
-
 		subjects = subDao.filter(school);
 
 		List<Integer> entYearSet = new ArrayList<>();
@@ -86,21 +87,10 @@ public class TestRegistAction extends Action {
 			entYearSet.add(i);
 		}
 
-		req.setAttribute("f1", entYear);
-		req.setAttribute("f2", classNum);
-		req.setAttribute("f3", no);
-		req.setAttribute("f4", name);
-		req.setAttribute("f5", points);
-
-		if (isAttendStr != null) {
-			isAttend = true;
-			req.setAttribute("f5", isAttendStr);
-		}
-
-		req.setAttribute("students", students);
-		req.setAttribute("subjects", subjects);
-		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("num", list);
+//		req.setAttribute("subject.cd", ; // ここで科目の名前を拾いたい
+		req.setAttribute("students", students);
 
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}

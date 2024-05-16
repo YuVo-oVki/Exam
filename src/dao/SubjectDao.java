@@ -111,7 +111,7 @@ public class SubjectDao extends Dao {
 			if (old == null) {
 				statement = connection.prepareStatement(
 						"insert into subject(school_cd, cd, name) values (?, ?, ?)");
-				statement.setString(1, school.getCd());
+				statement.setString(1, subject.getSchool().getCd());
 				statement.setString(2, subject.getCd());
 				statement.setString(3, subject.getName());
 			} else {
@@ -159,6 +159,7 @@ public class SubjectDao extends Dao {
 		try {
 			statement = connection.prepareStatement("delete from subject where cd=?");
 			statement.setString(1, subject.getCd());
+			count = statement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

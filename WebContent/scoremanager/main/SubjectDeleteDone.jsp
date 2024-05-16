@@ -16,7 +16,7 @@
 				<p>削除が完了しました</p>
 			</div>
 				<div class="mx-3 col-2">
-					<a href="StudentList.action">科目一覧</a>
+					<a href="SubjectList.action">科目一覧</a>
 				</div>
 			</div>
 		</section>

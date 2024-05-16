@@ -12,13 +12,12 @@ import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
-
 @WebServlet(urlPatterns={"/main/SubjectListAction"})
 public class SubjectListAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		//HttpSession session = req.getSession();
+//		HttpSession session = req.getSession();
 //		Teacher teacher = (Teacher)session.getAttribute("user");
 
 		School school=new School();
