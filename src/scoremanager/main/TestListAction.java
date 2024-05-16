@@ -85,7 +85,7 @@ public class TestListAction extends Action {
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("clsNum", clsList);
-		req.setAttribute("sub", subjects); // ここで科目の名前を収集したい
+		req.setAttribute("subjects", subjects); // ここで科目の名前を収集したい
 
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 

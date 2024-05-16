@@ -89,7 +89,7 @@ public class TestRegistAction extends Action {
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("num", list);
-//		req.setAttribute("subject.cd", ; // ここで科目の名前を拾いたい
+		req.setAttribute("subjects", subjects);
 		req.setAttribute("students", students);
 
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
