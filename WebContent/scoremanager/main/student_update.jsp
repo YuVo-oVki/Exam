@@ -47,18 +47,17 @@
 						</select>
 					</div>
 					<div class="col-2 form-check text-center">
-							<label class="form-check-label" for="student-f3-check">在学中
+							<label class="form-check-label" for="student-attend-check">在学中
 								<%-- パラメーターf3が存在している場合checkedを追記 --%>
 								<input class="form-check-input" type="checkbox"
-								id="student-f3-check" name="" value="t"
-								<c:if test="${!empty f3}">checked</c:if> />
+								id="student-attend-check" name="attend" checked="checked" />
 							</label>
 						</div>
 					<div class="mt-3">
 					<!--
 						<input class="btn btn-primary" type="submit" value="登録して再度入力" name="continue">
 					 -->
-						<input class="btn btn-secondary" type="submit" value="登録して終了" name="end">
+						<input class="btn btn-secondary" type="submit" value="変更して終了" name="end">
 					</div>
 				</div>
 			</form>
