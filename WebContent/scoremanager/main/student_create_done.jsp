@@ -17,10 +17,10 @@
 			</div>
 			<div class="lh-lg row" style="margin-top: 8rem;">
 				<div class="mx-3 col-1">
-					<a href="SubjectCreate.action">戻る</a>
+					<a href="StudentCreate.action">戻る</a>
 				</div>
 				<div class="mx-3 col-2">
-					<a href="SubjectList.action">学生一覧</a>
+					<a href="StudentList.action">学生一覧</a>
 				</div>
 			</div>
 		</section>

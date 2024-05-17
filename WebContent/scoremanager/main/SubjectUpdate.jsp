@@ -22,8 +22,9 @@
 				<div class="mx-3 py-2">
 					<div class="my-3">
 						<label class="form-label" for="student-ent_year-input">科目コード</label>
-						<input class="form-control" type="text" id="student-ent_year-input" name="cd"
-							value="${cd_set}" maxlength="10" readonly />
+						<input class="form-control" type="text" id="student-ent_year-input"
+							name="cd" value="${cd_set}" maxlength="10" readonly />
+						<div class="mt-2 text-warning">${errors.get("cd")}</div>
 					</div>
 					<div class="my-3">
 						<label class="form-label" for="student-name-input">科目名</label>

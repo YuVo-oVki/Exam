@@ -18,7 +18,7 @@
 					<p>${done}</p>
 				</div>
 			</c:if>
-			<form action = "StudentCreateExecute.action" method="post">
+			<form action = "StudentUpdateExecute.action" method="post">
 				<div class="mx-3 py-2">
 					<div class="my-3">
 						<label class="form-label" for="student-ent_year-input">入学年度</label>
@@ -33,16 +33,16 @@
 					<div class="my-3">
 						<label class="form-label" for="student-name-input">氏名</label>
 						<input class="form-control" type="text" id="student-name-input"
-							name="name"  maxlength="10"
+							name="name"  maxlength="10" placeholder="${old_name}"
 							value="${name}" required />
 						<div class="mt-2 text-warning">${errors.get("name")}</div>
 					</div>
 					<div class="my-3">
 						<label class="form-label" for="student-class_num-select">クラス</label>
 						<select class="form-select" id="student-class_num-select" name="class_num">
-							<c:forEach var="num" items="${class_num_set}">
-								<%-- 現在のnumと選択されていたclass_numが一致していた場合selectedを追記 --%>
-								<option value="${num}" <c:if test="${num==class_num}">selected</c:if>>${num}</option>
+							<option value="${old_class}">${old_class}</option>
+							<c:forEach var="class_num" items="${class_num_set}">
+								<option value="${class_num}">${class_num}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -50,7 +50,7 @@
 							<label class="form-check-label" for="student-f3-check">在学中
 								<%-- パラメーターf3が存在している場合checkedを追記 --%>
 								<input class="form-check-input" type="checkbox"
-								id="student-f3-check" name="f3" value="t"
+								id="student-f3-check" name="" value="t"
 								<c:if test="${!empty f3}">checked</c:if> />
 							</label>
 						</div>

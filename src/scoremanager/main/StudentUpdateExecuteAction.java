@@ -98,7 +98,7 @@ public class StudentUpdateExecuteAction extends Action {
 			req.setAttribute("no", no);
 			req.setAttribute("name", name);
 			req.setAttribute("class_num", classNum);
-			req.getRequestDispatcher("student_update.jsp").forward(req, res);
+			req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
 			return;
 		}
 		req.getRequestDispatcher("student_update_done.jsp").forward(req, res);

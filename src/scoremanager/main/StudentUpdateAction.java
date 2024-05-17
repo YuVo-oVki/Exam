@@ -39,15 +39,21 @@ public class StudentUpdateAction extends Action {
 		teacher.setName("大原花子");
 		teacher.setSchool(school);
 
+		List<String> list = cNumDao.filter(teacher.getSchool());
+
 		//jspのnoをゲットして
 		String no = req.getParameter("no");
-		sDao.get(no);
+		stu = sDao.get(no);
 		int entYear = stu.getEntYear();
-
+		String name = stu.getName();
+		String oldCls = stu.getClassNum();
 
 		//JSPへフォワード 7
 		req.setAttribute("ent_year_set", entYear);
 		req.setAttribute("no_set", no);
+		req.setAttribute("old_name", name);
+		req.setAttribute("class_num_set", list);
+		req.setAttribute("old_class", oldCls);
 		req.getRequestDispatcher("student_update.jsp").forward(req, res);
 	}
 }
