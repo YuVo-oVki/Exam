@@ -33,7 +33,7 @@
 					<div class="my-3">
 						<label class="form-label" for="student-name-input">氏名</label>
 						<input class="form-control" type="text" id="student-name-input"
-							name="name"  maxlength="10" placeholder="${old_name}"
+							name="name"  maxlength="10" placeholder="氏名を入力してください"
 							value="${name}" required />
 						<div class="mt-2 text-warning">${errors.get("name")}</div>
 					</div>
