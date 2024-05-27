@@ -6,13 +6,26 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class Dao {
+	/**
+	 * データソース:DataSource:クラスフィールド
+	 */
 	static DataSource ds;
 
+	/**
+	 * getConnectionメソッド データベースへのコネクションを返す
+	 *
+	 * @return データベースへのコネクション:Connection
+	 * @throws Exception
+	 */
 	public Connection getConnection() throws Exception {
-		if (ds==null) {
-			InitialContext ic=new InitialContext();
-			ds=(DataSource)ic.lookup("java:/comp/env/jdbc/score");
+		// データソースがnullの場合
+		if (ds == null) {
+			// InitialContextを初期化
+			InitialContext ic = new InitialContext();
+			// データベースへ接続
+			ds = (DataSource) ic.lookup("java:/comp/env/jdbc/exam");
 		}
+		// データベースへのコネクションを返却
 		return ds.getConnection();
 	}
 }
