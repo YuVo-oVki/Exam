@@ -1,14 +1,14 @@
 package scoremanager.main;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
@@ -17,45 +17,38 @@ public class SubjectUpdateExecuteAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
-		Subject subject = new Subject();
 		String cd = "";
 		String name = "";
-		SubjectDao sDao = new SubjectDao();
-		Map<String, String> errors = new HashMap<>();// エラーメッセージ
-		//Subject subject = (Subject) session.getAttribute("user");// ログインユーザーを取得
+		SubjectDao dao = new SubjectDao();
+		Map<String, String> errors = new HashMap<>();
+		HttpSession session = req.getSession();//セッション
+		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
+		//リクエストパラメータ―の取得 2
+		cd = req.getParameter("cd");
+		name = req.getParameter("name");
 
-		subject.setCd(cd);
-		subject.setName(name);
+		//DBからデータ取得 3
+		//科目コードから科目インスタンスを取得
+		Subject subject = dao.get(cd, teacher.getSchool());
 
-        cd = req.getParameter("cd");//番号
-	    name = req.getParameter("name");//氏名
-		subject = sDao.get(cd, school);// 番号から学生インスタンスを取得
-
-		if(subject == null){
-			errors.put("cd","科目が存在してません");
-		} else {
-			subject.setName(name);
-			sDao.save(subject);
-		}
-
-		req.setAttribute("cd_set", cd);
-		req.setAttribute("name_set", name);
-
-		if(!errors.isEmpty()){
-			// リクエスト属性をセット
-			req.setAttribute("errors", errors);
+		//ビジネスロジック 4
+		//DBへデータ保存 5
+		//レスポンス値をセット 6
+		if (subject == null) {
+			// 更新対象の科目が存在しないのでエラーページへ遷移
+			errors.put("cd", "科目が存在していません");
 			req.setAttribute("cd", cd);
 			req.setAttribute("name", name);
-			req.getRequestDispatcher("SubjectUpdate.jsp").forward(req, res);
-			return;
+			req.setAttribute("errors", errors);
+			req.getRequestDispatcher("error.jsp").forward(req, res);
+		} else {
+			// 科目の更新を実行して科目更新完了画面へ遷移
+			subject.setName(name);
+			// 科目情報を更新
+			dao.save(subject);
+			// 科目更新完了画面へ遷移
+			req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
 		}
-
-		req.getRequestDispatcher("SubjectUpdateDone.jsp").forward(req, res);
 	}
 }
-
-

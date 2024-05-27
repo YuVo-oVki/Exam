@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tool.Action;
 
-public class MenuAction extends Action {
+public class SubjectCreateAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -22,6 +22,8 @@ public class MenuAction extends Action {
 		//レスポンス値をセット 6
 		//なし
 		//JSPへフォワード 7
-		req.getRequestDispatcher("menu.jsp").forward(req, res);
+		// 科目登録実行画面へ遷移
+		req.getRequestDispatcher("subject_create.jsp").forward(req, res);
 	}
+
 }

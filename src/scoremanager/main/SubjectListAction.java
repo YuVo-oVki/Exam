@@ -2,42 +2,36 @@ package scoremanager.main;
 
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
-@WebServlet(urlPatterns={"/main/SubjectListAction"})
 public class SubjectListAction extends Action {
-	@Override
+
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		//ローカル変数の宣言 1
+		SubjectDao sDao = new SubjectDao();//科目Daoを初期化
+		HttpSession session = req.getSession(true);//セッションを取得
+		Teacher teacher = (Teacher) session.getAttribute("user");//ログインしているユーザーを取得
 
-//		HttpSession session = req.getSession();
-//		Teacher teacher = (Teacher)session.getAttribute("user");
-
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
-
-		Teacher teacher = new Teacher();
-		teacher.setId("admin");
-		teacher.setPassword("password");
-		teacher.setName("大原花子");
-		teacher.setSchool(school);
-
-		SubjectDao sDao = new SubjectDao();
-		List<Subject> subjects = null;
-
-		subjects = sDao.filter(school);
-
-
+		//リクエストパラメータ―の取得 2
+		//なし
+		//DBからデータ取得 3
+		//ログインユーザーの学校コードをもとに科目の一覧を取得
+		List<Subject> subjects = sDao.filter(teacher.getSchool());
+		//ビジネスロジック 4
+		//なし
+		//DBへデータ保存 5
+		//なし
+		//レスポンス値をセット 6
 		req.setAttribute("subjects", subjects);
-
+		//JSPへフォワード 7
+		//リクエストにデータをセット
 		req.getRequestDispatcher("subject_list.jsp").forward(req, res);
 	}
 }

@@ -2,20 +2,15 @@ package scoremanager.main;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
-import bean.Student;
 import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
-import dao.StudentDao;
 import dao.SubjectDao;
 import tool.Action;
 
@@ -23,80 +18,41 @@ public class TestListAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		// ローカル変数の初期化 1
+		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
+		SubjectDao sDao = new SubjectDao();// 科目Daoを初期化
+		HttpSession session = req.getSession(true);// セッションを取得
+		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
+		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
+		int year = todaysDate.getYear();// 現在の年を取得
+		List<Integer> entYearSet = new ArrayList<>();// 入学年度のリストを初期化
+		List<Integer> numSet = new ArrayList<>();// テストの回数リストを初期化
 
-		HttpSession session = req.getSession();
-//		Teacher teacher = (Teacher)session.getAttribute("user");
+		// リクエストパラメータ―の取得 2
+		//なし
+		// DBからデータ取得 3
+		List<String> list = cNumDao.filter(teacher.getSchool());//クラス番号の一覧を取得
+		List<Subject> subjects = sDao.filter(teacher.getSchool());//科目の一覧を取得
 
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
-
-		Teacher teacher = new Teacher();
-		teacher.setId("admin");
-		teacher.setPassword("password");
-		teacher.setName("大原花子");
-		teacher.setSchool(school);
-
-		String entYearStr = "";
-		String classNum = "";
-		String sub="";
-		String no = "";
-		int entYear = 0;
-		boolean isAttend = false;
-		Subject subject = new Subject();
-		List<Student> students = null;
-		List<Subject> subjects = null;
-		StudentDao sDao = new StudentDao();
-		SubjectDao subDao = new SubjectDao();
-		ClassNumDao cNumDao = new ClassNumDao();
-		LocalDate todaysDate = LocalDate.now();
-		int year = todaysDate.getYear();
-		Map<String, String> errors = new HashMap<>();
-
-		entYearStr = req.getParameter("f1");
-		classNum = req.getParameter("f2");
-		sub = req.getParameter("f3");
-		no = req.getParameter("f4");
-
-		List<String> clsList = cNumDao.filter(teacher.getSchool());
-
-		if (entYearStr != null) {
-			entYear = Integer.parseInt(entYearStr);
-		}
-
-		if (entYear != 0 && !classNum.equals("0")) {
-			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-		} else if (entYear != 0 && classNum.equals("0")) {
-			students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
-			students = sDao.filter(teacher.getSchool(), isAttend);
-		} else {
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-			req.setAttribute("errors", errors);
-			// 全学年情報を取得
-			students = sDao.filter(teacher.getSchool(), isAttend);
-		}
-		subjects = subDao.filter(school);
-
-		List<Integer> entYearSet = new ArrayList<>();
-		for (int i = year - 10; i < year + 1; i++) {
+		// ビジネスロジック 4
+		// 現在の前後10年を入学年度のリストに追加
+		for (int i = year - 10; i < year + 10; i++) {
 			entYearSet.add(i);
 		}
+		// 全2回分のテスト回数をリストに追加
+		for (int i = 1; i <= 2; i++) {
+			numSet.add(i);
+		}
+		// DBへデータ保存 5
+		// なし
+		// レスポンス値をセット 6
+		req.setAttribute("class_num_set", list);//クラス番号の一覧をセット
+		req.setAttribute("ent_year_set", entYearSet);//入学年度のリストをセット
+		req.setAttribute("subjects", subjects);//科目の一覧をセット
+		req.setAttribute("num_set", numSet);//テストの回数リストをセット
 
-		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("clsNum", clsList);
-		req.setAttribute("subjects", subjects); // ここで科目の名前を収集したい
-
+		// フォワード 7
+		// 成績一覧画面(初期表示)にフォワード
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
-
 	}
-
-	private void setTestListSubject(HttpServletRequest req, HttpServletResponse res){
-		// req.getRequestDispatcher("test_list_subject.jsp").forward(req, res);
-	}
-
-	private void setTestListStudent(HttpServletRequest req, HttpServletResponse res){
-		// req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
-	}
-
 }

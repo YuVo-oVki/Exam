@@ -1,46 +1,33 @@
 package scoremanager.main;
 
-import java.time.LocalDate;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import bean.School;
-import bean.Student;
-import bean.Subject;
-import dao.ClassNumDao;
-import dao.SubjectDao;
 import tool.Action;
 
 public class SubjectUpdateAction extends Action {
 
-	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
+		//なし
 
-		HttpSession session = req.getSession(true);// セッションを取得
-		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-		Student stu = new Student();
-		Subject subject = null;
-		LocalDate todaysDate = LocalDate.now();// LocalDateインスタンスを取得
-		SubjectDao sDao = new SubjectDao();
+		//リクエストパラメータ―の取得 2
+		String cd = req.getParameter("cd");
+		String name = req.getParameter("name");
 
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
+		//DBからデータ取得 3
+		//なし
+		//ビジネスロジック 4
+		//なし
+		//DBへデータ保存 5
+		//なし
 
+		//レスポンス値をセット 6
+		req.setAttribute("cd", cd);
+		req.setAttribute("name", name);
 
-        String cd = req.getParameter("cd");
-        String name = req.getParameter("name");
-		sDao.get(cd, school);
-		school = stu.getSchool();
-
-		//JSPへフォワード
-
-		req.setAttribute("cd_set", cd);
-		req.setAttribute("name_set", name);
-
-		req.getRequestDispatcher("SubjectUpdate.jsp").forward(req, res);
+		//JSPへフォワード 7
+		// 科目更新画面へ遷移
+		req.getRequestDispatcher("subject_update.jsp").forward(req, res);
 	}
 }

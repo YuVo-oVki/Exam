@@ -1,14 +1,13 @@
 package scoremanager.main;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -20,42 +19,36 @@ public class StudentUpdateAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//ローカル変数の宣言 1
-		HttpSession session = req.getSession(true);// セッションを取得
+		StudentDao sDao = new StudentDao();//学生Dao
+		HttpSession session = req.getSession();//セッション
+		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-		Student stu = new Student();
-		StudentDao sDao = new StudentDao();
-//		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
-		LocalDate todaysDate = LocalDate.now();// LocalDateインスタンスを取得
-		int year = todaysDate.getYear();// 現在の年を取得
-		List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
+		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
+		//リクエストパラメータ―の取得 2
+		String no = req.getParameter("no");//学番
 
-		Teacher teacher = new Teacher();
-		teacher.setId("admin");
-		teacher.setPassword("password");
-		teacher.setName("大原花子");
-		teacher.setSchool(school);
+		//DBからデータ取得 3
+		Student student = sDao.get(no);//学生番号から学生インスタンスを取得
+		List<String> list = cNumDao.filter(teacher.getSchool());//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 
-		List<String> list = cNumDao.filter(teacher.getSchool());
 
-		System.out.println(list);
-
-		//jspのnoをゲットして
-		String no = req.getParameter("no");
-		stu = sDao.get(no);
-		int entYear = stu.getEntYear();
-		String name = stu.getName();
-		String oldCls = stu.getClassNum();
-
-		//JSPへフォワード 7
-		req.setAttribute("ent_year_set", entYear);
-		req.setAttribute("no_set", no);
-		req.setAttribute("old_name", name);
+		//ビジネスロジック 4
+		//DBへデータ保存 5
+		//レスポンス値をセット 6
+		//条件で手順4~6の内容が分岐
 		req.setAttribute("class_num_set", list);
-		req.setAttribute("old_class", oldCls);
+		if (student != null) {// 学生が存在していた場合
+			req.setAttribute("ent_year", student.getEntYear());
+			req.setAttribute("no", student.getNo());
+			req.setAttribute("name", student.getName());
+			req.setAttribute("class_num", student.getClassNum());
+			req.setAttribute("is_attend", student.isAttend());
+		} else {// 学生が存在していなかった場合
+			errors.put("no", "学生が存在していません");
+			req.setAttribute("errors", errors);
+		}
+		//JSPへフォワード 7
 		req.getRequestDispatcher("student_update.jsp").forward(req, res);
 	}
 }

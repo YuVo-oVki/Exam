@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -31,20 +30,10 @@ public class StudentCreateExecuteAction extends Action {
 		Student student = null;//学生
 		Map<String, String> errors = new HashMap<>();// エラーメッセージ
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-//		Teacher teacher = (Teacher)session.getAttribute("user");// ログインユーザーを取得
+		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
 		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
 		List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
-
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
-
-		Teacher teacher = new Teacher();
-		teacher.setId("admin");
-		teacher.setPassword("password");
-		teacher.setName("大原花子");
-		teacher.setSchool(school);
 
 		//リクエストパラメータ―の取得 2
 		entYear = Integer.parseInt(req.getParameter("ent_year"));//入学年度
@@ -76,8 +65,7 @@ public class StudentCreateExecuteAction extends Action {
 				student.setEntYear(entYear);
 				student.setClassNum(classNum);
 				student.setAttend(true);
-				student.setSchool(school);
-//				student.setSchool(((Teacher)session.getAttribute("user")).getSchool());
+				student.setSchool(((Teacher)session.getAttribute("user")).getSchool());
 				// 学生を保存
 				sDao.save(student);
 			} else {//入力された学番がDBに保存されていた場合

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
@@ -20,19 +19,10 @@ public class StudentCreateAction extends Action {
 		//ローカル変数の宣言 1
 		HttpSession session = req.getSession(true);// セッションを取得
 		ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
-//		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
-		LocalDate todaysDate = LocalDate.now();// LocalDateインスタンスを取得
+		Teacher teacher = (Teacher) session.getAttribute("user");// ログインユーザーを取得
+		LocalDate todaysDate = LocalDate.now();// LcalDateインスタンスを取得
 		int year = todaysDate.getYear();// 現在の年を取得
 		List<Integer> entYearSet = new ArrayList<>();//入学年度のリストを初期化
-		School school=new School();
-		school.setCd("oom");
-		school.setName("学校名");
-
-		Teacher teacher = new Teacher();
-		teacher.setId("admin");
-		teacher.setPassword("password");
-		teacher.setName("大原花子");
-		teacher.setSchool(school);
 
 		//リクエストパラメータ―の取得 2
 		//なし
