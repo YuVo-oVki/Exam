@@ -31,5 +31,3 @@ public class SubjectDeleteExecuteAction extends Action {
 		req.getRequestDispatcher("SubjectDeleteDone.jsp").forward(req, res);
 	}
 }
-
-

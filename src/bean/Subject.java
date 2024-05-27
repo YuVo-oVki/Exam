@@ -3,11 +3,24 @@ package bean;
 import java.io.Serializable;
 
 public class Subject implements Serializable {
-
+	/**
+	 * 科目コード:String
+	 */
 	private String cd;
+
+	/**
+	 * 科目名:String
+	 */
 	private String name;
+
+	/**
+	 * 学校:School
+	 */
 	private School school;
 
+	/**
+	 * ゲッター、セッター
+	 */
 	public String getCd() {
 		return cd;
 	}
